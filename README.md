@@ -1,8 +1,9 @@
-#  📝 Notes App Frontend
+# Notes App Frontend
 
-This is the **frontend** part of the **Notes App** built with **React**, **Vite**, and **Tailwind CSS**.  
+This is the **Notes App** built with **React**, **Vite**, and **Tailwind CSS**.  
 It connects to a **Node.js + Express** backend that handles saving, fetching, updating, and deleting personal notes.
 
+i updated the code of both frontend and backend now this app can run locallly easily and fixed some bugs.
 ---
 
 ## 📦 Installation Guide
@@ -14,9 +15,9 @@ Follow the steps below to set up and run both the backend and frontend locally.
 ## 🖥️ 1. Clone the Repository
 
 ```bash
-git clone https://github.com/TonyStark-19/nodejs-fullstack-practice.git
+git clone 
 
-cd nodejs-fullstack-practice
+cd notes_app
 ```
 
 ## 🧩 2. Install and Run Backend of notes app
@@ -54,7 +55,7 @@ Your Notes App is now running locally 🎉
 
 - Frontend: `http://localhost:5173`
 
-- Backend: `http://localhost:3000`
+- Backend: `http://localhost:3001`
 
 --- 
 

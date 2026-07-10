@@ -4,6 +4,10 @@ This is the **Notes App** built with **React**, **Vite**, and **Tailwind CSS**.
 It connects to a **Node.js + Express** backend that handles saving, fetching, updating, and deleting personal notes.
 
 i updated the code of both frontend and backend now this app can run locallly easily and fixed some bugs.
+because the frontend is running on
+axios.get("https://notes-app-ftxv.onrender.com/api/notes")
+and backend is running on 
+https://notes-app-chi-khaki.vercel.app
 ---
 
 ## 📦 Installation Guide

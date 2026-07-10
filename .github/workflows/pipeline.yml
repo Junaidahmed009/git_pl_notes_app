@@ -48,7 +48,7 @@ jobs:
         run: |
           node index.js &
           sleep 5
-      
+      #linter can check the code quality and formatting issues in the frontend codebase.like missing semicolons, unused variables, and other common mistakes. It can also enforce coding standards and best practices, making the code more readable and maintainable.
       - name: Lint frontend
         working-directory: frontend
         run: npm run lint

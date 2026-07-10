@@ -16,10 +16,10 @@ export default function App() {
   const [selectedNote, setSelectedNote] = useState(null); // selected note
   const [menuOpen, setMenuOpen] = useState(false); // menu toggle
 
-  // for new node addition
-  const addNewNote = (newNote) => {
-    setNotes([newNote, ...notes]); // Add to top
-  };
+  // // for new node addition
+  // const addNewNote = (newNote) => {
+  //   setNotes([newNote, ...notes]); // Add to top
+  // };
 
   // Fetch notes from backend when app mounts
   useEffect(() => {

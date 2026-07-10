@@ -1,0 +1,54 @@
+# Name of the pipeline
+name: Notes App CI Pipeline
+
+# pipeline will run whenever code is pushed to main or when a pull request made to main
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    # Create a fresh Ubuntu server to run the pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      # Download repository code onto the server
+      - name: Checkout source code
+        uses: actions/checkout@v5
+
+      # Install the required Node.js version onserver
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Install backend packages and working dir should be the name of folder where the backend code is present
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm install
+
+      # Install frontend packages
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      # Build the React application /dist
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      # Start the backend to verify it launches successfully and running it in background.
+      - name: Start backend
+        working-directory: backend
+        run: |
+          node index.js &
+          sleep 5
+      
+      - name: Lint frontend
+        working-directory: frontend
+        run: npm run lint

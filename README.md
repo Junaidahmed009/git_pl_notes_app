@@ -64,3 +64,23 @@ Your Notes App is now running locally 🎉
 --- 
 
 Make sure both servers are running in separate terminals. Enjoy coding!
+
+# GitHub Actions CI Pipeline
+#
+# This pipeline activates whenever code is pushed to the main
+# branch or a pull request is opened on notes-app.
+#
+# The pipeline performs the following tasks:
+<!-- creates ubuntu server -->
+
+# 1. Checks out the latest source code from the repository.
+# 2. Sets up the mentioned Node.js environment.
+# 3. Installs backend project dependencies.
+# 4. Installs frontend project dependencies.
+# 5. Runs code quality checks (ESLint).
+# 6. Builds the React (Vite) frontend to verify that it compiles successfully.
+# 7. Starts the backend server to ensure it launches without runtime errors.
+#
+# If any step fails, the workflow stops immediately and reports the failure,
+# preventing broken code from being merged or deployed.
+# -----------------------------------------------------------------------------

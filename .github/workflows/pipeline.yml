@@ -50,83 +50,24 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_NAME }}
           password: ${{ secrets.DOCKERHUB_SECRET }}
-      # - name: build and push backend
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: ./backend
-      #     push: true
-      #     tags: |
-      #       rajajunaiddev/backend:latest
-      #       rajajunaiddev/backend:${{ github.sha }}
-      # - name: build and push frontend
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: ./frontend
-      #     push: true
-      #     tags: |
-      #       rajajunaiddev/frontend:latest
-      #       rajajunaiddev/frontend:${{ github.sha }}
+      - name: build and push backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          push: true
+          tags: |
+            rajajunaiddev/backend-notes-app:latest
+            rajajunaiddev/backend-notes-app:${{ github.sha }}
+      - name: build and push frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            rajajunaiddev/frontend-notes-app:latest
+            rajajunaiddev/frontend-notes-app:${{ github.sha }}
      
 
 
 
 
-
-
-# ---------------------------------------------------
-
-
-# # Name of the pipeline
-# name: Notes App CI Pipeline
-
-# # pipeline will run whenever code is pushed to main or when a pull request made to main
-# on:
-#   push:
-#     branches:
-#       - main
-
-#   pull_request:
-#     branches:
-#       - main
-
-# jobs:
-#   build:
-#     # Create a fresh Ubuntu server to run the pipeline
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       # Download repository code onto the server
-#       - name: Checkout source code
-#         uses: actions/checkout@v5
-
-#       # Install the required Node.js version onserver
-#       - name: Setup Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: 20
-
-#       # Install backend packages and working dir should be the name of folder where the backend code is present
-#       - name: Install backend dependencies
-#         working-directory: backend
-#         run: npm install
-
-#       # Install frontend packages
-#       - name: Install frontend dependencies
-#         working-directory: frontend
-#         run: npm install
-
-#       # Build the React application /dist
-#       - name: Build frontend
-#         working-directory: frontend
-#         run: npm run build
-
-#       # Start the backend to verify it launches successfully and running it in background.
-#       - name: Start backend
-#         working-directory: backend
-#         run: |
-#           node index.js &
-#           sleep 5
-#       #linter can check the code quality and formatting issues in the frontend codebase.like missing semicolons, unused variables, and other common mistakes. It can also enforce coding standards and best practices, making the code more readable and maintainable.
-#       - name: Lint frontend
-#         working-directory: frontend
-#         run: npm run lint

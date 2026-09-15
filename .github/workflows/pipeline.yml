@@ -1,54 +1,171 @@
-# Name of the pipeline
-name: Notes App CI Pipeline
+#phase: 1
+name: Docker-image-pipeline
 
-# pipeline will run whenever code is pushed to main or when a pull request made to main
 on:
   push:
     branches:
       - main
-
   pull_request:
     branches:
       - main
 
 jobs:
   build:
-    # Create a fresh Ubuntu server to run the pipeline
     runs-on: ubuntu-latest
-
     steps:
-      # Download repository code onto the server
-      - name: Checkout source code
-        uses: actions/checkout@v5
-
-      # Install the required Node.js version onserver
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: checkout repository
+        uses: actions/checkout@v7 
+      - name: setup node
+        uses: actions/setup-node@v3 
         with:
-          node-version: 20
-
-      # Install backend packages and working dir should be the name of folder where the backend code is present
-      - name: Install backend dependencies
+          node-version: '24'
+      - name: checking node version
+        run: node -v  
+      - name: installing dependencies frontend 
+        working-directory: frontend 
+        run: npm ci 
+      - name: installing dependencies backend
         working-directory: backend
-        run: npm install
+        run: npm ci
 
-      # Install frontend packages
-      - name: Install frontend dependencies
-        working-directory: frontend
-        run: npm install
 
-      # Build the React application /dist
-      - name: Build frontend
-        working-directory: frontend
-        run: npm run build
 
-      # Start the backend to verify it launches successfully and running it in background.
-      - name: Start backend
-        working-directory: backend
-        run: |
-          node index.js &
-          sleep 5
-      #linter can check the code quality and formatting issues in the frontend codebase.like missing semicolons, unused variables, and other common mistakes. It can also enforce coding standards and best practices, making the code more readable and maintainable.
-      - name: Lint frontend
-        working-directory: frontend
-        run: npm run lint
+      # - name: testing pipeline
+      #   run: echo "test passed"
+      # - name: build frontend #phase 6 building the frontend code to generate the build folder which will be used to deploy the code to production.
+      #   working-directory: frontend
+      #   run: npm run build
+      # # - name: checking docker installation
+      # #   run: |
+      # #     docker --version
+      # #     docker info
+      # # - name: build frontend docker image #building docker images. i added dockerfile and .dockerignore in both frontend and backend folders.
+      # #   working-directory: frontend
+      # #   run: docker build -t rajajunaiddev/frontend:latest .
+      # # - name: build backend docker image
+      # #   working-directory: backend
+      # #   run: docker build -t rajajunaiddev/backend:latest .
+      # - name: Dockerhub login  #phase 7 login to dockerhub and build and push to dockerhub
+      #   uses: docker/login-action@v4
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_NAME }}
+      #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      # - name: build and push backend
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: ./backend
+      #     push: true
+      #     tags: |
+      #       rajajunaiddev/backend:latest
+      #       rajajunaiddev/backend:${{ github.sha }}
+      # - name: build and push frontend
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: ./frontend
+      #     push: true
+      #     tags: |
+      #       rajajunaiddev/frontend:latest
+      #       rajajunaiddev/frontend:${{ github.sha }}
+      # - name: Deploy to EC2 #phase 8 deploying the code to ec2 instance using ssh action.
+      #   uses: appleboy/ssh-action@v1.2.4
+      #   with:
+      #     host: ${{ secrets.AWS_UBUNTU_HOST }}
+      #     username: ${{ secrets.AWS_UBUNTU_USERNAME }}
+      #     key: ${{ secrets.UBUNTU_PRIVATE_SSH_KEY }}
+      #     # port: ${{ secrets.EC2_PORT }}
+      #     script: |
+      #       docker pull rajajunaiddev/backend:latest
+      #       docker pull rajajunaiddev/frontend:latest
+
+      #       docker stop frontendd-container || true
+      #       docker rm frontendd-container || true
+
+      #       docker stop backend-container || true
+      #       docker rm backend-container || true
+
+      #       docker run -d \
+      #         --name backend-updated \
+      #         -p 3001:3001 \
+      #         rajajunaiddev/backend:latest
+
+      #       docker run -d \
+      #         --name frontend-updated \
+      #         -p 5173:5173 \
+      #         rajajunaiddev/frontend:latest
+      # # - name: running linting backend
+      # #   working-directory: backend
+      # #   run: npm run lint
+
+
+
+# - name: testing pipeline
+      #   run: echo "hello world"
+       # - name: printing path of the repo
+        #   run:  pwd
+        # - name: printing the list of files in the repo
+        #   run: ls -a 
+
+
+
+
+
+
+
+
+# ---------------------------------------------------
+
+
+# # Name of the pipeline
+# name: Notes App CI Pipeline
+
+# # pipeline will run whenever code is pushed to main or when a pull request made to main
+# on:
+#   push:
+#     branches:
+#       - main
+
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   build:
+#     # Create a fresh Ubuntu server to run the pipeline
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       # Download repository code onto the server
+#       - name: Checkout source code
+#         uses: actions/checkout@v5
+
+#       # Install the required Node.js version onserver
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 20
+
+#       # Install backend packages and working dir should be the name of folder where the backend code is present
+#       - name: Install backend dependencies
+#         working-directory: backend
+#         run: npm install
+
+#       # Install frontend packages
+#       - name: Install frontend dependencies
+#         working-directory: frontend
+#         run: npm install
+
+#       # Build the React application /dist
+#       - name: Build frontend
+#         working-directory: frontend
+#         run: npm run build
+
+#       # Start the backend to verify it launches successfully and running it in background.
+#       - name: Start backend
+#         working-directory: backend
+#         run: |
+#           node index.js &
+#           sleep 5
+#       #linter can check the code quality and formatting issues in the frontend codebase.like missing semicolons, unused variables, and other common mistakes. It can also enforce coding standards and best practices, making the code more readable and maintainable.
+#       - name: Lint frontend
+#         working-directory: frontend
+#         run: npm run lint

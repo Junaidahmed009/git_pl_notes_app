@@ -15,7 +15,6 @@ const PORT = 3001;
 
 // Enable CORS to allow frontend access
 app.use(cors({
-    // origin: "https://notes-app-chi-khaki.vercel.app",
     origin: "http://localhost:5173", // Allow requests from the frontend
     // methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true

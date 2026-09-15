@@ -42,14 +42,14 @@ jobs:
       - name: build frontend docker image #building docker images. i added dockerfile and .dockerignore in both frontend and backend folders.
         working-directory: frontend
         run: docker build -t rajajunaiddev/frontend-notes-app:latest .
-      # # - name: build backend docker image
-      # #   working-directory: backend
-      # #   run: docker build -t rajajunaiddev/backend:latest .
-      # - name: Dockerhub login  #phase 7 login to dockerhub and build and push to dockerhub
-      #   uses: docker/login-action@v4
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_NAME }}
-      #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: build backend docker image
+        working-directory: backend
+        run: docker build -t rajajunaiddev/backend-notes-app:latest .
+      - name: Dockerhub login
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_NAME }}
+          password: ${{ secrets.DOCKERHUB_SECRET }}
       # - name: build and push backend
       #   uses: docker/build-push-action@v6
       #   with:
@@ -66,46 +66,7 @@ jobs:
       #     tags: |
       #       rajajunaiddev/frontend:latest
       #       rajajunaiddev/frontend:${{ github.sha }}
-      # - name: Deploy to EC2 #phase 8 deploying the code to ec2 instance using ssh action.
-      #   uses: appleboy/ssh-action@v1.2.4
-      #   with:
-      #     host: ${{ secrets.AWS_UBUNTU_HOST }}
-      #     username: ${{ secrets.AWS_UBUNTU_USERNAME }}
-      #     key: ${{ secrets.UBUNTU_PRIVATE_SSH_KEY }}
-      #     # port: ${{ secrets.EC2_PORT }}
-      #     script: |
-      #       docker pull rajajunaiddev/backend:latest
-      #       docker pull rajajunaiddev/frontend:latest
-
-      #       docker stop frontendd-container || true
-      #       docker rm frontendd-container || true
-
-      #       docker stop backend-container || true
-      #       docker rm backend-container || true
-
-      #       docker run -d \
-      #         --name backend-updated \
-      #         -p 3001:3001 \
-      #         rajajunaiddev/backend:latest
-
-      #       docker run -d \
-      #         --name frontend-updated \
-      #         -p 5173:5173 \
-      #         rajajunaiddev/frontend:latest
-      # # - name: running linting backend
-      # #   working-directory: backend
-      # #   run: npm run lint
-
-
-
-# - name: testing pipeline
-      #   run: echo "hello world"
-       # - name: printing path of the repo
-        #   run:  pwd
-        # - name: printing the list of files in the repo
-        #   run: ls -a 
-
-
+     
 
 
 

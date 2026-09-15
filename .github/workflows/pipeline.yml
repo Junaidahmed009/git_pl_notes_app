@@ -39,7 +39,7 @@ jobs:
       #   run: |
       #     docker --version
       #     docker info
-      - name: build frontend docker image #building docker images. i added dockerfile and .dockerignore in both frontend and backend folders.
+      - name: build frontend docker image 
         working-directory: frontend
         run: docker build -t rajajunaiddev/frontend-notes-app:latest .
       - name: build backend docker image

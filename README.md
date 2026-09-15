@@ -1,3 +1,13 @@
+So hi my name is junaid Ahmed and I used a Notes app that I had previously cloned from GiHub and created a small GitHub Actions pipeline for testing. After reviewing the task requirements, I updated the project to properly use Docker and pushed the Docker images to Docker Hub.
+
+First, I reviewed the project structure and created separate Dockerfiles for the frontend and backend. I used the Node.js 24 image as the base image and configured the required dependencies, files, ports, and start commands.
+
+After creating the Dockerfiles, I built and tested both images locally to make sure the containers were working correctly. Once the local testing was successful, I created a GitHub Actions pipeline using an Ubuntu runner.
+
+The pipeline installs the required dependencies, builds the frontend and backend Docker images, logs in to Docker Hub using GitHub Secrets, and pushes the images automatically.
+
+As a next improvement, I would add Docker Compose so both containers can be managed and started together instead of starting each container manually. I would also improve the Dockerfiles and pipeline further for better efficiency and automation.
+
 # Notes App Frontend
 
 This is the **Notes App** built with **React**, **Vite**, and **Tailwind CSS**.  
